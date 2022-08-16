@@ -8,7 +8,6 @@ public class CharacterRuleO {
 
   public static CharacterRule cons(final CharacterData characterData, final int numCharacters) {
     return new CharacterRule() {
-
       public RuleResult validate(String password) {
         if (numCharacters <= 0) {
           throw new IllegalArgumentException("argument must be greater than zero");

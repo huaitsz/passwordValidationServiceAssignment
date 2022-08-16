@@ -20,7 +20,7 @@ class LengthComplexityRuleOTest {
       log.debug("Password is valid");
     } else {
       log.debug("Invalid password:");
-      for (String msg : PasswordValidator.getMessages(result)) {
+      for (String msg : PasswordValidatorO.getMessages(result)) {
         log.debug(msg);
       }
     }

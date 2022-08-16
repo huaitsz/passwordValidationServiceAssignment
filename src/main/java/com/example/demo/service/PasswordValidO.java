@@ -22,7 +22,7 @@ public class PasswordValidO {
       );
 
       return Future.of(() -> validator.validate(password))
-        .map(r -> new ValidationResult(r.isValid(), PasswordValidator.getMessages(r)));
+        .map(r -> new ValidationResult(r.isValid(), PasswordValidatorO.getMessages(r)));
     };
 
   }

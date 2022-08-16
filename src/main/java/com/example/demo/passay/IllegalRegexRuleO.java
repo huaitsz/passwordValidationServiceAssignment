@@ -8,10 +8,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IllegalRegexRuleO {
-  private IllegalRegexRuleO() {}
 
   /** Error code for regex validation failures. */
   public static final String ERROR_CODE = "ILLEGAL_MATCH";
+
+  private IllegalRegexRuleO() {}
 
   public static IllegalRegexRule cons(final String regex) {
     return cons(regex, ERROR_CODE);

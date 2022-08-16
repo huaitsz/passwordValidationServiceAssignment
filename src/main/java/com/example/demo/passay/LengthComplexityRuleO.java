@@ -4,6 +4,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class LengthComplexityRuleO {
+
+  /** Error code for password too short. */
+  public static final String ERROR_CODE_MIN = "TOO_SHORT";
+
+  /** Error code for password too long. */
+  public static final String ERROR_CODE_MAX = "TOO_LONG";
+
   private LengthComplexityRuleO() {}
 
   public static LengthComplexityRule cons(final int minLength, final int maxLength) {
