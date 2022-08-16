@@ -10,10 +10,10 @@ import io.vavr.jackson.datatype.VavrModule;
 
 @Component
 public class Configuration {
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper()
-            .registerModule(new JavaTimeModule())
-            .registerModule(new VavrModule());
-    }
+  @Bean
+  public ObjectMapper objectMapper() {
+    return new ObjectMapper()
+      .registerModule(new JavaTimeModule())
+      .registerModule(new VavrModule());
+  }
 }

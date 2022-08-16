@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CharacterRuleO {
+
   private CharacterRuleO() {}
 
   public static CharacterRule cons(final CharacterData characterData, final int numCharacters) {

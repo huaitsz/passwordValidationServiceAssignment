@@ -10,12 +10,12 @@ import org.springframework.test.web.servlet.MockMvc;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RestControllerTest {
+public abstract class AbstractRestControllerTest {
 
-   @Autowired
-   private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-   public MockMvc getMockMvc() {
-      return mockMvc;
-   }
+  public MockMvc getMockMvc() {
+    return mockMvc;
+  }
 }

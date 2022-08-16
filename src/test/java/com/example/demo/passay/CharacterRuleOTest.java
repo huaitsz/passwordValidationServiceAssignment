@@ -5,47 +5,63 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+
+import java.util.stream.Stream;
+
+import static com.example.demo.passay.RuleTest.codes;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class CharacterRuleOTest {
-  @Test
-  void ruleValid() {
-    final PasswordValidator validator = PasswordValidatorO.cons(
-      CharacterRuleO.cons(EnglishCharacterData.LowerCase, 1)
-    );
-    final RuleResult result = validator.validate("13");
 
-    if (result.isValid()) {
-      log.debug("Password is valid");
-    } else {
-      log.debug("Invalid password:");
-      for (String msg : PasswordValidatorO.getMessages(result)) {
-        log.debug(msg);
-      }
+  static class Passwords implements ArgumentsProvider {
+    @Override
+    public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
+      return Stream.of(
+        Arguments.of(CharacterRuleO.cons(EnglishCharacterData.LowerCase, 1),
+          "REGDFa3432",
+          null
+        ),
+        Arguments.of(CharacterRuleO.cons(EnglishCharacterData.LowerCase, 1),
+          "REGDF3432",
+          codes(EnglishCharacterData.LowerCase.getErrorCode())
+        ),
+        Arguments.of(CharacterRuleO.cons(EnglishCharacterData.Digit, 1),
+          "pzRcv8#n",
+          null
+        ),
+        Arguments.of(CharacterRuleO.cons(EnglishCharacterData.Digit, 1),
+          "pzRcv#n",
+          codes(EnglishCharacterData.Digit.getErrorCode())
+        )
+      );
     }
-
-    assertFalse(result.isValid());
   }
 
-  @Test
-  void ruleInvalid() {
-    final PasswordValidator validator = PasswordValidatorO.cons(
-      CharacterRuleO.cons(EnglishCharacterData.LowerCase, 1)
-    );
-    final RuleResult result = validator.validate("1a3");
-
-    if (result.isValid()) {
-      log.debug("Password is valid");
-    } else {
-      log.debug("Invalid password:");
-      for (String msg : PasswordValidatorO.getMessages(result)) {
-        log.debug(msg);
-      }
+  static class Messages implements ArgumentsProvider {
+    @Override
+    public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
+      return Stream.of(
+        Arguments.of(
+          CharacterRuleO.cons(EnglishCharacterData.LowerCase, 1),
+          "REGDF3432",
+          new String[] {
+            String.format("Password must contain %1$s or more lowercase characters.", 1)
+          }
+        ),
+        Arguments.of(
+          CharacterRuleO.cons(EnglishCharacterData.Digit, 1),
+          "pzRcv#n",
+          new String[] {
+            String.format("Password must contain %1$s or more digit characters.", 1)
+          }
+        )
+      );
     }
-
-    assertTrue(result.isValid());
   }
 
   @Test
@@ -89,7 +105,7 @@ class CharacterRuleOTest {
       log.debug("Password is valid");
     } else {
       log.debug("Invalid password:");
-      for (String msg : PasswordValidatorO.getMessages(result)) {
+      for (String msg : validator.getMessages(result)) {
         log.debug(msg);
       }
     }
@@ -125,7 +141,7 @@ class CharacterRuleOTest {
       log.debug("Password is valid");
     } else {
       log.debug("Invalid password:");
-      for (String msg : PasswordValidatorO.getMessages(result)) {
+      for (String msg : validator.getMessages(result)) {
         log.debug(msg);
       }
     }

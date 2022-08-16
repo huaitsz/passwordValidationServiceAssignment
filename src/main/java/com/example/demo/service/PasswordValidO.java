@@ -16,13 +16,13 @@ public class PasswordValidO {
         // at least one digit character
         CharacterRuleO.cons(EnglishCharacterData.Digit, 1),
         // length between 8 and 16 characters
-        LengthComplexityRuleO.cons(5, 12),
+        LengthRuleO.cons(5, 12),
         // rejects passwords that contain repeating sequences of characters
         IllegalRepeatedSequencesRule.cons()
       );
 
       return Future.of(() -> validator.validate(password))
-        .map(r -> new ValidationResult(r.isValid(), PasswordValidatorO.getMessages(r)));
+        .map(r -> new ValidationResult(r.isValid(), validator.getMessages(r)));
     };
 
   }

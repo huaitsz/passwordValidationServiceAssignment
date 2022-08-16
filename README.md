@@ -10,14 +10,14 @@ of each.
 
 curl -X POST http://localhost:8888/password/verification -d password=[value]
 
-If given password parameter "!!!!!!!!!!!!!!" , the response of API will be in JSON below.
+When the api given password parameter "!!!!!!!!!!!!!!" is transfered, the response of API looks as below.
 ```
 {
   "isValid": false,
   "messages": [
     "Password must contain 1 or more lowercase characters.",
     "Password must contain 1 or more digit characters.",
-    "Password must be no more than 7 characters in length.",
+    "Password must be no more than 12 characters in length.",
     "Password contains the repeating sequences of characters '!!!!!!!!!!!!!!'."
   ]
 }
